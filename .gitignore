@@ -6,3 +6,4 @@ public/logo512.png
 public/manifest.json
 public/robots.txt
 src/assets/investment-calculator-logo.png
+node_modules
