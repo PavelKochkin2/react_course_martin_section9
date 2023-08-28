@@ -12,6 +12,7 @@ const CalculationResultTable = (props) => {
           <th>Interest (Year)</th>
           <th>Total Interest</th>
           <th>Invested Capital</th>
+          {/* <th>{props.calculationResult}</th> */}
         </tr>
       </thead>
       <tbody>

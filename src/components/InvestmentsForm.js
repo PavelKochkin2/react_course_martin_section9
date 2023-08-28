@@ -10,14 +10,44 @@ const defaultState = {
 
 const InvestmentsForm = (props) => {
   const [formState, setFormState] = useState(defaultState);
+  const calculateHandler = (userInput) => {
+    //debugger;
+    userInput.preventDefault();
+
+    // Should be triggered when form is submitted
+    // You might not directly want to bind it to the submit event on the form though...
+
+    const yearlyData = []; // per-year results
+
+    let currentSavings = formState.currentSavings;
+    const yearlyContribution = formState.yearlyContribution;
+    const expectedReturn = formState.expectedInterests / 100;
+    const duration = formState.investmentDurationYears;
+
+    // The below code calculates yearly results (total savings, interest etc)
+    for (let i = 0; i < duration; i++) {
+      const yearlyInterest = currentSavings * expectedReturn;
+      currentSavings += yearlyInterest + yearlyContribution;
+      yearlyData.push({
+        year: i + 1,
+        yearlyInterest: yearlyInterest,
+        savingsEndOfYear: currentSavings,
+        yearlyContribution: yearlyContribution,
+      });
+    }
+
+    // do something with yearlyData ...
+    console.log(yearlyData);
+
+    props.handleCalculationResult(yearlyData);
+  };
 
   const onCancel = () => {
     alert("cancel");
   };
 
   const onSubmit = (event) => {
-    console.log(props.calculateHandler);
-    props.calculateHandler(event);
+    calculateHandler(event);
   };
 
   const onChange = (event) => {
