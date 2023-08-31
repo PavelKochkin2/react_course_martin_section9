@@ -1,11 +1,12 @@
 import "./CalculationResultRow.module.css";
 
-const CalculationResultRow = (props) => {
+const CalculationResultRow = ({ resultItem }) => {
+  if (!resultItem) return "Empty";
   return (
     <tr>
-      <td>YEAR NUMBER</td>
-      <td>TOTAL SAVINGS END OF YEAR</td>
-      <td>INTEREST GAINED IN YEAR</td>
+      <td>{resultItem.year}</td>
+      <td>{resultItem.savingsEndOfYear.toFixed(2)}</td>
+      <td>{resultItem.yearlyInterest.toFixed(2)}</td>
       <td>TOTAL INTEREST GAINED</td>
       <td>TOTAL INVESTED CAPITAL</td>
     </tr>

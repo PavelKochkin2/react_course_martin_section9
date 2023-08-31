@@ -2,7 +2,7 @@ import "./CalculationResultTable.module.css";
 
 import CalculationResultRow from "./CalculationResultRow";
 
-const CalculationResultTable = (props) => {
+const CalculationResultTable = ({ calculationResult }) => {
   return (
     <table className="result">
       <thead>
@@ -16,8 +16,12 @@ const CalculationResultTable = (props) => {
         </tr>
       </thead>
       <tbody>
-        {/* {props.input.map(row=>(CalculationResultRow))} */}
-        <CalculationResultRow />
+        {!(Object.keys(calculationResult).length === 0) &&
+          calculationResult.map((resultItem) => {
+            console.log("hello from CalculationResultTable");
+            console.log(resultItem);
+            return <CalculationResultRow resultItem={resultItem} />;
+          })}
       </tbody>
     </table>
   );
