@@ -4,16 +4,14 @@ import "./InvestmentsForm.module.css";
 const defaultState = {
   currentSavings: 15000,
   yearlyContribution: 1700,
-  expectedInterests: 7,
-  investmentDurationYears: 10,
+  expectedReturnRatePercentage: 7,
+  // investmentDurationYears: 10,
+  durationYears: 10,
 };
 
 const InvestmentsForm = (props) => {
   const [formState, setFormState] = useState(defaultState);
   const calculateHandler = (userInput) => {
-    //debugger;
-    userInput.preventDefault();
-
     // Should be triggered when form is submitted
     // You might not directly want to bind it to the submit event on the form though...
 
@@ -21,8 +19,8 @@ const InvestmentsForm = (props) => {
 
     let currentSavings = formState.currentSavings;
     const yearlyContribution = formState.yearlyContribution;
-    const expectedReturn = formState.expectedInterests / 100;
-    const duration = formState.investmentDurationYears;
+    const expectedReturn = formState.expectedReturnRatePercentage / 100;
+    const duration = formState.durationYears;
 
     // The below code calculates yearly results (total savings, interest etc)
     for (let i = 0; i < duration; i++) {
@@ -43,10 +41,11 @@ const InvestmentsForm = (props) => {
   };
 
   const onCancel = () => {
-    alert("cancel");
+    setFormState(defaultState);
   };
 
   const onSubmit = (event) => {
+    event.preventDefault();
     calculateHandler(event);
   };
 
@@ -62,11 +61,11 @@ const InvestmentsForm = (props) => {
       });
     } else if (event.target.id === "expected-return") {
       setFormState((prevState) => {
-        return { ...prevState, expectedInterests: newValue };
+        return { ...prevState, expectedReturnRatePercentage: newValue };
       });
     } else if (event.target.id === "duration") {
       setFormState((prevState) => {
-        return { ...prevState, investmentDurationYears: newValue };
+        return { ...prevState, durationYears: newValue };
       });
     }
   };
@@ -99,16 +98,12 @@ const InvestmentsForm = (props) => {
           <input
             type="number"
             id="expected-return"
-            value={formState.expectedInterests}
+            value={formState.expectedReturnRatePercentage}
           />
         </p>
         <p>
           <label htmlFor="duration">Investment Duration (years)</label>
-          <input
-            type="number"
-            id="duration"
-            value={formState.investmentDurationYears}
-          />
+          <input type="number" id="duration" value={formState.durationYears} />
         </p>
       </div>
       <p className="actions">
